@@ -47,11 +47,15 @@ class ExtendPostRating_Listener_CodeEvent
 
 	public static function navigationTabs(array &$extraTabs, $selectedTabId)
 	{
-		$extraTabs['postRatings'] = array(
-			'title'			=> new XenForo_Phrase('dark_post_ratings'),
-			'href'			=> XenForo_Link::buildPublicLink('post-ratings'),
-			'position'		=> 'middle',
-			'linksTemplate'	=> 'epr_navigation_tab',
-		);
+		$xenOptions = XenForo_Application::getOptions();
+		if ($xenOptions->epr_enableNavigationLink)
+		{
+			$extraTabs['postRatings'] = array(
+				'title'			=> new XenForo_Phrase('dark_post_ratings'),
+				'href'			=> XenForo_Link::buildPublicLink('post-ratings'),
+				'position'		=> 'middle',
+				'linksTemplate'	=> 'epr_navigation_tab',
+			);
+		}
 	}
 }

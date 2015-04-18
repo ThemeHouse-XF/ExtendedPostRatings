@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<addon addon_id="epr" title="Extend Post Ratings" version_string="1.0.3" version_id="1000370" url="https://xenforo.com/community/members/jake-b.38615/" install_callback_class="ExtendPostRating_Listener_Install" install_callback_method="install" uninstall_callback_class="ExtendPostRating_Listener_Install" uninstall_callback_method="uninstall">
-  <admin_navigation/>
-  <admin_permissions/>
-  <admin_style_properties/>
-  <admin_templates/>
-  <admin_template_modifications>
-    <modification template="tools_rebuild" modification_key="epr_tools_rebuild" description="Rebuild Likes Option" execution_order="10" enabled="1" action="str_replace">
-      <find><![CDATA[<xen:form action="{xen:adminlink 'tools/trigger-deferred'}">
+<addon addon_id="epr" title="Extend Post Ratings" version_string="1.0.4 Dev Build 1" version_id="1000401" url="https://www.audentio.com" install_callback_class="ExtendPostRating_Listener_Install" install_callback_method="install" uninstall_callback_class="ExtendPostRating_Listener_Install" uninstall_callback_method="uninstall">
+	<admin_navigation/>
+	<admin_permissions/>
+	<admin_style_properties/>
+	<admin_templates/>
+	<admin_template_modifications>
+		<modification template="tools_rebuild" modification_key="epr_tools_rebuild" description="Rebuild Likes Option" execution_order="10" enabled="1" action="str_replace">
+			<find><![CDATA[<xen:form action="{xen:adminlink 'tools/trigger-deferred'}">
 	<h2 class="subHeading">{xen:phrase rebuild_user_caches}</h2>]]></find>
-      <replace><![CDATA[<xen:form action="{xen:adminlink 'tools/trigger-deferred'}">
+			<replace><![CDATA[<xen:form action="{xen:adminlink 'tools/trigger-deferred'}">
 	<h2 class="subHeading">{xen:phrase epr_rebuild_like_cache}</h2>
 	<xen:spinboxunit name="options[batch]" value="100" step="50" min="1" label="{xen:phrase items_to_process_per_page}:" />
 
@@ -16,60 +16,68 @@
 	<input type="hidden" name="cache" value="ExtendPostRating_Deferred_LikeCache" />
 </xen:form>
 $0]]></replace>
-    </modification>
-  </admin_template_modifications>
-  <code_events/>
-  <code_event_listeners>
-    <listener event_id="load_class" execute_order="11" callback_class="ExtendPostRating_Listener_CodeEvent" callback_method="loadClass" active="1" hint="" description="Extend Classes"/>
-    <listener event_id="navigation_tabs" execute_order="10" callback_class="ExtendPostRating_Listener_CodeEvent" callback_method="navigationTabs" active="1" hint="" description="Adds &quot;Post Ratings&quot; Navigation Tab"/>
-    <listener event_id="template_hook" execute_order="10" callback_class="ExtendPostRating_Listener_CodeEvent" callback_method="templateHook" active="1" hint="forum_list_sidebar" description="Sidebar Block"/>
-  </code_event_listeners>
-  <cron/>
-  <email_templates/>
-  <email_template_modifications/>
-  <optiongroups>
-    <group group_id="epr" display_order="100000" debug_only="0"/>
-    <option option_id="epr_enableSidebarBlock" edit_format="onoff" data_type="boolean" can_backup="1">
-      <default_value>false</default_value>
-      <edit_format_params></edit_format_params>
-      <sub_options></sub_options>
-      <relation group_id="epr" display_order="1"/>
-    </option>
-  </optiongroups>
-  <permissions>
-    <permission_groups/>
-    <permissions/>
-    <interface_groups/>
-  </permissions>
-  <phrases>
-    <phrase title="epr_no_statistics_to_display" version_id="1000270" version_string="1.0.2"><![CDATA[No statistics to display.]]></phrase>
-    <phrase title="epr_post_rating_statistics" version_id="1000170" version_string="1.0.1"><![CDATA[Post Rating Statistics]]></phrase>
-    <phrase title="epr_ratings_X_has_given" version_id="1000011" version_string="1.0.0 Alpha 1"><![CDATA[Ratings {username} has given]]></phrase>
-    <phrase title="epr_ratings_X_has_received" version_id="1000011" version_string="1.0.0 Alpha 1"><![CDATA[Ratings {username} has received]]></phrase>
-    <phrase title="epr_rebuild_like_cache" version_id="1000270" version_string="1.0.2"><![CDATA[Rebuild Like cache]]></phrase>
-    <phrase title="epr_top_givers" version_id="1000170" version_string="1.0.1"><![CDATA[Top Givers]]></phrase>
-    <phrase title="epr_top_rating_receivers" version_id="1000370" version_string="1.0.3"><![CDATA[Top Rating Receivers]]></phrase>
-    <phrase title="epr_top_receivers" version_id="1000170" version_string="1.0.1"><![CDATA[Top Receivers]]></phrase>
-    <phrase title="option_epr_enableSidebarBlock" version_id="1000370" version_string="1.0.3"><![CDATA[Enable Sidebar Block]]></phrase>
-    <phrase title="option_epr_enableSidebarBlock_explain" version_id="1000370" version_string="1.0.3"><![CDATA[Should the sidebar block be displayed on the forum list page?]]></phrase>
-    <phrase title="option_group_epr" version_id="1000370" version_string="1.0.3"><![CDATA[Extend Post Ratings]]></phrase>
-    <phrase title="option_group_epr_description" version_id="1000370" version_string="1.0.3"><![CDATA[]]></phrase>
-  </phrases>
-  <route_prefixes>
-    <route_type type="public">
-      <prefix original_prefix="post-ratings" class="ExtendPostRating_Route_Prefix_PostRatings" build_link="none"/>
-    </route_type>
-  </route_prefixes>
-  <style_properties/>
-  <templates>
-    <template title="epr_extra.css" version_id="1000011" version_string="1.0.0 Alpha 1"><![CDATA[a.dark_postrating_positive { color: #62A201; }
+		</modification>
+	</admin_template_modifications>
+	<code_events/>
+	<code_event_listeners>
+		<listener event_id="load_class" execute_order="11" callback_class="ExtendPostRating_Listener_CodeEvent" callback_method="loadClass" active="1" hint="" description="Extend Classes"/>
+		<listener event_id="navigation_tabs" execute_order="10" callback_class="ExtendPostRating_Listener_CodeEvent" callback_method="navigationTabs" active="1" hint="" description="Adds &quot;Post Ratings&quot; Navigation Tab"/>
+		<listener event_id="template_hook" execute_order="10" callback_class="ExtendPostRating_Listener_CodeEvent" callback_method="templateHook" active="1" hint="forum_list_sidebar" description="Sidebar Block"/>
+	</code_event_listeners>
+	<cron/>
+	<email_templates/>
+	<email_template_modifications/>
+	<optiongroups>
+		<group group_id="epr" display_order="100000" debug_only="0"/>
+		<option option_id="epr_enableNavigationLink" edit_format="onoff" data_type="boolean" can_backup="1">
+			<default_value>1</default_value>
+			<edit_format_params></edit_format_params>
+			<sub_options></sub_options>
+			<relation group_id="epr" display_order="10"/>
+		</option>
+		<option option_id="epr_enableSidebarBlock" edit_format="onoff" data_type="boolean" can_backup="1">
+			<default_value>0</default_value>
+			<edit_format_params></edit_format_params>
+			<sub_options></sub_options>
+			<relation group_id="epr" display_order="5"/>
+		</option>
+	</optiongroups>
+	<permissions>
+		<permission_groups/>
+		<permissions/>
+		<interface_groups/>
+	</permissions>
+	<phrases>
+		<phrase title="epr_no_statistics_to_display" version_id="1000270" version_string="1.0.2"><![CDATA[No statistics to display.]]></phrase>
+		<phrase title="epr_post_rating_statistics" version_id="1000170" version_string="1.0.1"><![CDATA[Post Rating Statistics]]></phrase>
+		<phrase title="epr_ratings_X_has_given" version_id="1000011" version_string="1.0.0 Alpha 1"><![CDATA[Ratings {username} has given]]></phrase>
+		<phrase title="epr_ratings_X_has_received" version_id="1000011" version_string="1.0.0 Alpha 1"><![CDATA[Ratings {username} has received]]></phrase>
+		<phrase title="epr_rebuild_like_cache" version_id="1000270" version_string="1.0.2"><![CDATA[Rebuild Like cache]]></phrase>
+		<phrase title="epr_top_givers" version_id="1000170" version_string="1.0.1"><![CDATA[Top Givers]]></phrase>
+		<phrase title="epr_top_rating_receivers" version_id="1000370" version_string="1.0.3"><![CDATA[Top Rating Receivers]]></phrase>
+		<phrase title="epr_top_receivers" version_id="1000170" version_string="1.0.1"><![CDATA[Top Receivers]]></phrase>
+		<phrase title="option_epr_enableNavigationLink" version_id="1000371" version_string="1.0.3 Patch 1"><![CDATA[Enable Navigation Link]]></phrase>
+		<phrase title="option_epr_enableNavigationLink_explain" version_id="1000371" version_string="1.0.3 Patch 1"><![CDATA[]]></phrase>
+		<phrase title="option_epr_enableSidebarBlock" version_id="1000371" version_string="1.0.3 Patch 1"><![CDATA[[EXPERIMENTAL] Enable Sidebar Block]]></phrase>
+		<phrase title="option_epr_enableSidebarBlock_explain" version_id="1000371" version_string="1.0.3 Patch 1"><![CDATA[Should the sidebar block be displayed on the forum list page? -- This is very resource heavy currently, and should only be turned on if you have a low traffic board.]]></phrase>
+		<phrase title="option_group_epr" version_id="1000370" version_string="1.0.3"><![CDATA[Extend Post Ratings]]></phrase>
+		<phrase title="option_group_epr_description" version_id="1000370" version_string="1.0.3"><![CDATA[]]></phrase>
+	</phrases>
+	<route_prefixes>
+		<route_type type="public">
+			<prefix original_prefix="post-ratings" class="ExtendPostRating_Route_Prefix_PostRatings" build_link="none"/>
+		</route_type>
+	</route_prefixes>
+	<style_properties/>
+	<templates>
+		<template title="epr_extra.css" version_id="1000011" version_string="1.0.0 Alpha 1"><![CDATA[a.dark_postrating_positive { color: #62A201; }
 a.dark_postrating_negative { color: #D90B00; }
 a.dark_postrating_neutral { color: #000; }]]></template>
-    <template title="epr_navigation_tab" version_id="1000270" version_string="1.0.2"><![CDATA[<ul class="secondaryContent blockLinksList">				
+		<template title="epr_navigation_tab" version_id="1000270" version_string="1.0.2"><![CDATA[<ul class="secondaryContent blockLinksList">
 	<li><a href="{xen:link post-ratings}">{xen:phrase epr_top_receivers}</a></li>
 	<li><a href="{xen:link post-ratings, '', 'type=given'}">{xen:phrase epr_top_givers}</a></li>
 </ul>]]></template>
-    <template title="epr_ratings_given" version_id="1000170" version_string="1.0.1"><![CDATA[<xen:title>{xen:phrase epr_ratings_X_has_given, 'username={$member.username}'}{xen:helper pagenumber, $page}</xen:title>
+		<template title="epr_ratings_given" version_id="1000170" version_string="1.0.1"><![CDATA[<xen:title>{xen:phrase epr_ratings_X_has_given, 'username={$member.username}'}{xen:helper pagenumber, $page}</xen:title>
 
 <xen:navigation>
 	<xen:breadcrumb href="{xen:link full:members, $member}">{$member.username}</xen:breadcrumb>
@@ -104,7 +112,7 @@ a.dark_postrating_neutral { color: #000; }]]></template>
 <xen:else />
 	<p>{xen:phrase dark_unfortunately_none_of_your_content_has_received_any_ratings_yet}</p>
 </xen:if>]]></template>
-    <template title="epr_ratings_received" version_id="1000170" version_string="1.0.1"><![CDATA[<xen:title>{xen:phrase epr_ratings_X_has_received, 'username={$member.username}'}{xen:helper pagenumber, $page}</xen:title>
+		<template title="epr_ratings_received" version_id="1000170" version_string="1.0.1"><![CDATA[<xen:title>{xen:phrase epr_ratings_X_has_received, 'username={$member.username}'}{xen:helper pagenumber, $page}</xen:title>
 
 <xen:navigation>
 	<xen:breadcrumb href="{xen:link full:members, $member}">{$member.username}</xen:breadcrumb>
@@ -140,7 +148,7 @@ a.dark_postrating_neutral { color: #000; }]]></template>
 <xen:else />
 	<p>{xen:phrase dark_unfortunately_none_of_your_content_has_received_any_ratings_yet}</p>
 </xen:if>]]></template>
-    <template title="epr_top_members" version_id="1000370" version_string="1.0.3"><![CDATA[<xen:title>{xen:phrase epr_post_rating_statistics}: {xen:if '!{$type}', '{xen:phrase epr_top_receivers}', '{xen:phrase epr_top_givers}'}</xen:title>
+		<template title="epr_top_members" version_id="1000370" version_string="1.0.3"><![CDATA[<xen:title>{xen:phrase epr_post_rating_statistics}: {xen:if '!{$type}', '{xen:phrase epr_top_receivers}', '{xen:phrase epr_top_givers}'}</xen:title>
 
 <xen:require css="member_list.css" />
 <xen:require css="xenforo_member_list_item.css" />
@@ -191,8 +199,8 @@ a.dark_postrating_neutral { color: #000; }]]></template>
 		<p>{xen:phrase epr_no_statistics_to_display}</p>
 	</xen:if>
 </div>]]></template>
-    <template title="epr_top_members.css" version_id="1000370" version_string="1.0.3"><![CDATA[]]></template>
-    <template title="epr_top_user_sidebar" version_id="1000370" version_string="1.0.3"><![CDATA[<xen:if is="{$ratings}">
+		<template title="epr_top_members.css" version_id="1000370" version_string="1.0.3"><![CDATA[]]></template>
+		<template title="epr_top_user_sidebar" version_id="1000370" version_string="1.0.3"><![CDATA[<xen:if is="{$ratings}">
 <div class="section eprTopUsers">
 	<div class="secondaryContent">
 		<h3><a href="{xen:link post-ratings}">{xen:phrase epr_top_rating_receivers}</a></h3>
@@ -202,11 +210,11 @@ a.dark_postrating_neutral { color: #000; }]]></template>
 	</div>
 </div>
 </xen:if>]]></template>
-    <template title="epr_top_user_sidebar_item" version_id="1000370" version_string="1.0.3"><![CDATA[<dl class="pairsJustified" id="rating rating_{$rating.id}">
+		<template title="epr_top_user_sidebar_item" version_id="1000370" version_string="1.0.3"><![CDATA[<dl class="pairsJustified" id="rating rating_{$rating.id}">
 	<dt>{$rating.title}:</dt>
 	<dd><xen:username user="$rating.top_user" rich="true" /> ({xen:number $rating.top_user.rating})</dd>
 </dl>]]></template>
-    <template title="news_feed_item_epr_rate" version_id="1000070" version_string="1.0.0"><![CDATA[<xen:set var="$ratingIcon"><xen:if is="{$content.rating.name}"><xen:if is="{$content.rating.sprite_mode}"><img src="styles/default/xenforo/clear.png" alt="" style="background: url('styles/dark/ratings/{$content.rating.name}') no-repeat {$content.rating.sprite_params.x}px {$content.rating.sprite_params.y}px; width: {$content.rating.sprite_params.w}px; height: {$content.rating.sprite_params.h}px; vertical-align: middle;" /><xen:else /><img src="styles/dark/ratings/{$content.rating.name}" alt="" style="vertical-align:middle" /></xen:if></xen:if></xen:set>
+		<template title="news_feed_item_epr_rate" version_id="1000070" version_string="1.0.0"><![CDATA[<xen:set var="$ratingIcon"><xen:if is="{$content.rating.name}"><xen:if is="{$content.rating.sprite_mode}"><img src="styles/default/xenforo/clear.png" alt="" style="background: url('styles/dark/ratings/{$content.rating.name}') no-repeat {$content.rating.sprite_params.x}px {$content.rating.sprite_params.y}px; width: {$content.rating.sprite_params.w}px; height: {$content.rating.sprite_params.h}px; vertical-align: middle;" /><xen:else /><img src="styles/dark/ratings/{$content.rating.name}" alt="" style="vertical-align:middle" /></xen:if></xen:if></xen:set>
 
 <h3 class="description">
 	<xen:if is="{$type} == 'given'">
@@ -227,30 +235,30 @@ a.dark_postrating_neutral { color: #000; }]]></template>
 <p class="snippet">{xen:helper snippet, $content.message, $xenOptions.newsFeedMessageSnippetLength, {xen:array 'stripQuote=1'}}</p>
 
 <xen:include template="news_feed_attached_images" />]]></template>
-  </templates>
-  <public_template_modifications>
-    <modification template="dark_postrating_member" modification_key="dark_postrating_member_add_css" description="Adds extra CSS to member ratings table." execution_order="11" enabled="1" action="str_replace">
-      <find><![CDATA[<xen:require css="dark_postrating.css" />]]></find>
-      <replace><![CDATA[$0
+	</templates>
+	<public_template_modifications>
+		<modification template="dark_postrating_member" modification_key="dark_postrating_member_add_css" description="Adds extra CSS to member ratings table." execution_order="11" enabled="1" action="str_replace">
+			<find><![CDATA[<xen:require css="dark_postrating.css" />]]></find>
+			<replace><![CDATA[$0
 <xen:require css="epr_extra.css" />]]></replace>
-    </modification>
-    <modification template="dark_postrating_member" modification_key="dark_postrating_member_given_link" description="Adds link on 'given'" execution_order="11" enabled="1" action="str_replace">
-      <find><![CDATA[{xen:phrase dark_given}]]></find>
-      <replace><![CDATA[<a href="{xen:link 'members/ratings-given', $user}">$0</a>]]></replace>
-    </modification>
-    <modification template="dark_postrating_member" modification_key="dark_postrating_member_rating_given_link" description="Adds link on 'given' for individual rating" execution_order="11" enabled="1" action="str_replace">
-      <find><![CDATA[{xen:number $rating.given}]]></find>
-      <replace><![CDATA[<a href="{xen:link 'members/ratings-given', $user, 'rating={$rating.id}'}"<xen:if is="{$rating.type} == 1"> class="dark_postrating_positive"</xen:if><xen:if is="{$rating.type} == 0"> class="dark_postrating_neutral"</xen:if><xen:if is="{$rating.type} == -1"> class="dark_postrating_negative"</xen:if>>{xen:number $rating.given}</a>]]></replace>
-    </modification>
-    <modification template="dark_postrating_member" modification_key="dark_postrating_member_rating_received_link" description="Adds link on 'received' for individual ratig" execution_order="11" enabled="1" action="str_replace">
-      <find><![CDATA[{xen:number $rating.received}]]></find>
-      <replace><![CDATA[<a href="{xen:link 'members/ratings-received', $user, 'rating={$rating.id}'}"<xen:if is="{$rating.type} == 1"> class="dark_postrating_positive"</xen:if><xen:if is="{$rating.type} == 0"> class="dark_postrating_neutral"</xen:if><xen:if is="{$rating.type} == -1"> class="dark_postrating_negative"</xen:if>>{xen:number $rating.received}</a>]]></replace>
-    </modification>
-    <modification template="dark_postrating_member" modification_key="dark_postrating_member_received_link" description="Adds link on 'received'" execution_order="11" enabled="1" action="str_replace">
-      <find><![CDATA[{xen:phrase dark_received}]]></find>
-      <replace><![CDATA[<a href="{xen:link 'members/ratings-received', $user}">$0</a>]]></replace>
-    </modification>
-  </public_template_modifications>
-  <bb_code_media_sites/>
-  <bb_codes/>
+		</modification>
+		<modification template="dark_postrating_member" modification_key="dark_postrating_member_given_link" description="Adds link on 'given'" execution_order="11" enabled="1" action="str_replace">
+			<find><![CDATA[{xen:phrase dark_given}]]></find>
+			<replace><![CDATA[<a href="{xen:link 'members/ratings-given', $user}">$0</a>]]></replace>
+		</modification>
+		<modification template="dark_postrating_member" modification_key="dark_postrating_member_rating_given_link" description="Adds link on 'given' for individual rating" execution_order="11" enabled="1" action="str_replace">
+			<find><![CDATA[{xen:number $rating.given}]]></find>
+			<replace><![CDATA[<a href="{xen:link 'members/ratings-given', $user, 'rating={$rating.id}'}"<xen:if is="{$rating.type} == 1"> class="dark_postrating_positive"</xen:if><xen:if is="{$rating.type} == 0"> class="dark_postrating_neutral"</xen:if><xen:if is="{$rating.type} == -1"> class="dark_postrating_negative"</xen:if>>{xen:number $rating.given}</a>]]></replace>
+		</modification>
+		<modification template="dark_postrating_member" modification_key="dark_postrating_member_rating_received_link" description="Adds link on 'received' for individual ratig" execution_order="11" enabled="1" action="str_replace">
+			<find><![CDATA[{xen:number $rating.received}]]></find>
+			<replace><![CDATA[<a href="{xen:link 'members/ratings-received', $user, 'rating={$rating.id}'}"<xen:if is="{$rating.type} == 1"> class="dark_postrating_positive"</xen:if><xen:if is="{$rating.type} == 0"> class="dark_postrating_neutral"</xen:if><xen:if is="{$rating.type} == -1"> class="dark_postrating_negative"</xen:if>>{xen:number $rating.received}</a>]]></replace>
+		</modification>
+		<modification template="dark_postrating_member" modification_key="dark_postrating_member_received_link" description="Adds link on 'received'" execution_order="11" enabled="1" action="str_replace">
+			<find><![CDATA[{xen:phrase dark_received}]]></find>
+			<replace><![CDATA[<a href="{xen:link 'members/ratings-received', $user}">$0</a>]]></replace>
+		</modification>
+	</public_template_modifications>
+	<bb_code_media_sites/>
+	<bb_codes/>
 </addon>
