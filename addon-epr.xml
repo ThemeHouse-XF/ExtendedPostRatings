@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<addon addon_id="epr" title="Extend Post Ratings" version_string="1.0.3" version_id="1000370" url="https://xenforo.com/community/members/jake-b.38615/" install_callback_class="ExtendPostRating_Listener_Install" install_callback_method="install" uninstall_callback_class="ExtendPostRating_Listener_Install" uninstall_callback_method="uninstall">
+<addon addon_id="epr" title="Extend Post Ratings" version_string="1.0.4" version_id="1000470" url="https://xenforo.com/community/members/jake-b.38615/" install_callback_class="ExtendPostRating_Listener_Install" install_callback_method="install" uninstall_callback_class="ExtendPostRating_Listener_Install" uninstall_callback_method="uninstall">
   <admin_navigation/>
   <admin_permissions/>
   <admin_style_properties/>
-  <admin_templates/>
+  <admin_templates>
+    <template title="epr_widget_options_top_user"><![CDATA[<xen:radiounit label="{xen:phrase epr_widget_top_user_type}:" name="{$namePrefix}ratingType">
+	<xen:option value="0" selected="!{$options.ratingType}">{xen:phrase epr_top_receivers}</xen:option>
+	<xen:option value="1" selected="{$options.ratingType}">{xen:phrase epr_top_givers}</xen:option>
+	<xen:explain>{xen:phrase epr_widget_top_user_type_explain}</xen:explain>
+</xen:radiounit>]]></template>
+  </admin_templates>
   <admin_template_modifications>
     <modification template="tools_rebuild" modification_key="epr_tools_rebuild" description="Rebuild Likes Option" execution_order="10" enabled="1" action="str_replace">
       <find><![CDATA[<xen:form action="{xen:adminlink 'tools/trigger-deferred'}">
@@ -22,26 +28,29 @@ $0]]></replace>
   <code_event_listeners>
     <listener event_id="load_class" execute_order="11" callback_class="ExtendPostRating_Listener_CodeEvent" callback_method="loadClass" active="1" hint="" description="Extend Classes"/>
     <listener event_id="navigation_tabs" execute_order="10" callback_class="ExtendPostRating_Listener_CodeEvent" callback_method="navigationTabs" active="1" hint="" description="Adds &quot;Post Ratings&quot; Navigation Tab"/>
-    <listener event_id="template_hook" execute_order="10" callback_class="ExtendPostRating_Listener_CodeEvent" callback_method="templateHook" active="1" hint="forum_list_sidebar" description="Sidebar Block"/>
+    <listener event_id="widget_framework_ready" execute_order="10" callback_class="ExtendPostRating_Listener_CodeEvent" callback_method="widgetFrameworkReady" active="1" hint="Widget for 'Top Users'" description=""/>
   </code_event_listeners>
   <cron/>
   <email_templates/>
   <email_template_modifications/>
   <optiongroups>
     <group group_id="epr" display_order="100000" debug_only="0"/>
-    <option option_id="epr_enableSidebarBlock" edit_format="onoff" data_type="boolean" can_backup="1">
-      <default_value>false</default_value>
+    <option option_id="epr_dailyLimit" edit_format="spinbox" data_type="integer" can_backup="1">
+      <default_value>86400</default_value>
       <edit_format_params></edit_format_params>
       <sub_options></sub_options>
-      <relation group_id="epr" display_order="1"/>
+      <relation group_id="epr" display_order="10"/>
     </option>
   </optiongroups>
   <permissions>
     <permission_groups/>
-    <permissions/>
+    <permissions>
+      <permission permission_group_id="forum" permission_id="postRateLimit" permission_type="integer" default_value_int="0" interface_group_id="forumPermissions" display_order="100001"/>
+    </permissions>
     <interface_groups/>
   </permissions>
   <phrases>
+    <phrase title="daily_post_rating_limit_reached" version_id="1000470" version_string="1.0.4"><![CDATA[You have reached the maximum daily limit for post ratings!]]></phrase>
     <phrase title="epr_no_statistics_to_display" version_id="1000270" version_string="1.0.2"><![CDATA[No statistics to display.]]></phrase>
     <phrase title="epr_post_rating_statistics" version_id="1000170" version_string="1.0.1"><![CDATA[Post Rating Statistics]]></phrase>
     <phrase title="epr_ratings_X_has_given" version_id="1000011" version_string="1.0.0 Alpha 1"><![CDATA[Ratings {username} has given]]></phrase>
@@ -50,10 +59,13 @@ $0]]></replace>
     <phrase title="epr_top_givers" version_id="1000170" version_string="1.0.1"><![CDATA[Top Givers]]></phrase>
     <phrase title="epr_top_rating_receivers" version_id="1000370" version_string="1.0.3"><![CDATA[Top Rating Receivers]]></phrase>
     <phrase title="epr_top_receivers" version_id="1000170" version_string="1.0.1"><![CDATA[Top Receivers]]></phrase>
-    <phrase title="option_epr_enableSidebarBlock" version_id="1000370" version_string="1.0.3"><![CDATA[Enable Sidebar Block]]></phrase>
-    <phrase title="option_epr_enableSidebarBlock_explain" version_id="1000370" version_string="1.0.3"><![CDATA[Should the sidebar block be displayed on the forum list page?]]></phrase>
+    <phrase title="epr_widget_top_user_type" version_id="1000470" version_string="1.0.4"><![CDATA[Rating Statistics]]></phrase>
+    <phrase title="epr_widget_top_user_type_explain" version_id="1000470" version_string="1.0.4"><![CDATA[Choose what type of ratings statistics to display.]]></phrase>
+    <phrase title="option_epr_dailyLimit" version_id="1000470" version_string="1.0.4"><![CDATA[Daily Limit]]></phrase>
+    <phrase title="option_epr_dailyLimit_explain" version_id="1000470" version_string="1.0.4"><![CDATA[This is the amount of time (in seconds) that a user can give ratings before their limit is reached.]]></phrase>
     <phrase title="option_group_epr" version_id="1000370" version_string="1.0.3"><![CDATA[Extend Post Ratings]]></phrase>
-    <phrase title="option_group_epr_description" version_id="1000370" version_string="1.0.3"><![CDATA[]]></phrase>
+    <phrase title="option_group_epr_description" version_id="1000470" version_string="1.0.4"><![CDATA[Adds additional functionality to the addon 'Post Ratings'.]]></phrase>
+    <phrase title="permission_forum_postRateLimit" version_id="1000470" version_string="1.0.4"><![CDATA[[Extend Post Ratings] Daily Rate Limit]]></phrase>
   </phrases>
   <route_prefixes>
     <route_type type="public">
@@ -140,7 +152,7 @@ a.dark_postrating_neutral { color: #000; }]]></template>
 <xen:else />
 	<p>{xen:phrase dark_unfortunately_none_of_your_content_has_received_any_ratings_yet}</p>
 </xen:if>]]></template>
-    <template title="epr_top_members" version_id="1000370" version_string="1.0.3"><![CDATA[<xen:title>{xen:phrase epr_post_rating_statistics}: {xen:if '!{$type}', '{xen:phrase epr_top_receivers}', '{xen:phrase epr_top_givers}'}</xen:title>
+    <template title="epr_top_members" version_id="1000470" version_string="1.0.4"><![CDATA[<xen:title>{xen:phrase epr_post_rating_statistics}: {xen:if '!{$type}', '{xen:phrase epr_top_receivers}', '{xen:phrase epr_top_givers}'}</xen:title>
 
 <xen:require css="member_list.css" />
 <xen:require css="xenforo_member_list_item.css" />
@@ -163,7 +175,7 @@ a.dark_postrating_neutral { color: #000; }]]></template>
 
 <ul class="tabs">
 	<xen:foreach loop="$postRatings" value="$rating">
-		<li class="rating_{$rating.id} {xen:if '{$ratingId} == {$rating.id}', 'active'}"><a href="{xen:link post-ratings, '', 'rating={$rating.id}','type={$type}'}">{$rating.title}</a></li>
+		<li class="rating_{$rating.id} {xen:if '{$ratingId} == {$rating.id}', 'active'}"><a href="{xen:link post-ratings, '', 'rating={$rating.id}','type={$type}'}"><xen:if is="{$rating.name}"><xen:if is="{$rating.sprite_mode}"><img src="styles/default/xenforo/clear.png" alt="" style="background: url('styles/dark/ratings/{$rating.name}') no-repeat {$rating.sprite_params.x}px {$rating.sprite_params.y}px; width: {$rating.sprite_params.w}px; height: {$rating.sprite_params.h}px; vertical-align: middle;" /><xen:else /><img src="styles/dark/ratings/{$rating.name}" alt="" style="vertical-align:middle" /></xen:if></xen:if> {$rating.title}</a></li>
 	</xen:foreach>
 </ul>
 
@@ -192,19 +204,19 @@ a.dark_postrating_neutral { color: #000; }]]></template>
 	</xen:if>
 </div>]]></template>
     <template title="epr_top_members.css" version_id="1000370" version_string="1.0.3"><![CDATA[]]></template>
-    <template title="epr_top_user_sidebar" version_id="1000370" version_string="1.0.3"><![CDATA[<xen:if is="{$ratings}">
+    <template title="epr_widget_top_user" version_id="1000470" version_string="1.0.4"><![CDATA[<xen:if is="{$ratings}">
 <div class="section eprTopUsers">
 	<div class="secondaryContent">
-		<h3><a href="{xen:link post-ratings}">{xen:phrase epr_top_rating_receivers}</a></h3>
 		<xen:foreach loop="$ratings" value="$rating">
-			<xen:include template="epr_top_user_sidebar_item" />
+			<xen:include template="epr_widget_top_user_item" />
 		</xen:foreach>
 	</div>
 </div>
 </xen:if>]]></template>
-    <template title="epr_top_user_sidebar_item" version_id="1000370" version_string="1.0.3"><![CDATA[<dl class="pairsJustified" id="rating rating_{$rating.id}">
-	<dt>{$rating.title}:</dt>
-	<dd><xen:username user="$rating.top_user" rich="true" /> ({xen:number $rating.top_user.rating})</dd>
+    <template title="epr_widget_top_user_item" version_id="1000470" version_string="1.0.4"><![CDATA[<dl class="pairsJustified" id="rating rating_{$rating.id}">
+	<dt><xen:if is="{$rating.name}"><xen:if is="{$rating.sprite_mode}"><img src="styles/default/xenforo/clear.png" alt="" style="background: url('styles/dark/ratings/{$rating.name}') no-repeat {$rating.sprite_params.x}px {$rating.sprite_params.y}px; width: {$rating.sprite_params.w}px; height: {$rating.sprite_params.h}px; vertical-align: middle;" /><xen:else /><img src="styles/dark/ratings/{$rating.name}" alt="" style="vertical-align:middle" /></xen:if></xen:if>
+	<a href="post-ratings/?rating={$rating.id}{xen:if "!{$widget.options.ratingType}", '', '&type=given'}	">{$rating.title}</a>:</dt>
+	<dd><xen:username user="$rating" rich="true" /> ({xen:number $rating.count})</dd>
 </dl>]]></template>
     <template title="news_feed_item_epr_rate" version_id="1000070" version_string="1.0.0"><![CDATA[<xen:set var="$ratingIcon"><xen:if is="{$content.rating.name}"><xen:if is="{$content.rating.sprite_mode}"><img src="styles/default/xenforo/clear.png" alt="" style="background: url('styles/dark/ratings/{$content.rating.name}') no-repeat {$content.rating.sprite_params.x}px {$content.rating.sprite_params.y}px; width: {$content.rating.sprite_params.w}px; height: {$content.rating.sprite_params.h}px; vertical-align: middle;" /><xen:else /><img src="styles/dark/ratings/{$content.rating.name}" alt="" style="vertical-align:middle" /></xen:if></xen:if></xen:set>
 

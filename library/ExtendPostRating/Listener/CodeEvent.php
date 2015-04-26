@@ -1,31 +1,6 @@
 <?php
 class ExtendPostRating_Listener_CodeEvent
 {
-	public static function templateHook($hookName, &$contents, array $hookParams, XenForo_Template_Abstract $template)
-	{
-		$xenOption = XenForo_Application::getOptions();
-		$model = XenForo_Model::create('Dark_PostRating_Model');
-		switch ($hookName)
-		{
-			case 'forum_list_sidebar':
-				if ($xenOption->epr_enableSidebarBlock)
-				{
-					$ratings = $model->getActiveRatings();
-					$ratingIds = array();
-					$topUsers = array();
-					foreach ($ratings as &$rating)
-					{
-						$rating['top_user'] = $model->getTopUserForRatingId($rating['id']);
-					}
-
-					$viewParams = array(
-						'ratings'	=> $ratings
-					);
-					$contents .= $template->create('epr_top_user_sidebar', $viewParams)->render();
-				}
-				break;
-		}
-	}
 	public static function loadClass($class, array &$extend)
 	{
 		switch ($class)
@@ -53,5 +28,10 @@ class ExtendPostRating_Listener_CodeEvent
 			'position'		=> 'middle',
 			'linksTemplate'	=> 'epr_navigation_tab',
 		);
+	}
+
+	public static function widgetFrameworkReady(&$renderers)
+	{
+		$renderers[]= "ExtendPostRating_WidgetRenderer_TopUsers";
 	}
 }
