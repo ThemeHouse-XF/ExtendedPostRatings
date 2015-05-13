@@ -26,6 +26,7 @@ class ExtendPostRating_Listener_CodeEvent
 				break;
 		}
 	}
+
 	public static function loadClass($class, array &$extend)
 	{
 		switch ($class)
