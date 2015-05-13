@@ -1,35 +1,6 @@
 <?php
 class ExtendPostRating_Listener_CodeEvent
 {
-<<<<<<< HEAD
-	public static function templateHook($hookName, &$contents, array $hookParams, XenForo_Template_Abstract $template)
-	{
-		$xenOption = XenForo_Application::getOptions();
-		$model = XenForo_Model::create('Dark_PostRating_Model');
-		switch ($hookName)
-		{
-			case 'forum_list_sidebar':
-				if ($xenOption->epr_enableSidebarBlock)
-				{
-					$ratings = $model->getActiveRatings();
-					$ratingIds = array();
-					$topUsers = array();
-					foreach ($ratings as &$rating)
-					{
-						$rating['top_user'] = $model->getTopUserForRatingId($rating['id']);
-					}
-
-					$viewParams = array(
-						'ratings'	=> $ratings
-					);
-					$contents .= $template->create('epr_top_user_sidebar', $viewParams)->render();
-				}
-				break;
-		}
-	}
-
-=======
->>>>>>> 992971a84ba2fc4fe5deccc3066d77eadb17f7ec
 	public static function loadClass($class, array &$extend)
 	{
 		switch ($class)
