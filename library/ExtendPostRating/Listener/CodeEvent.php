@@ -1,6 +1,7 @@
 <?php
 class ExtendPostRating_Listener_CodeEvent
 {
+<<<<<<< HEAD
 	public static function templateHook($hookName, &$contents, array $hookParams, XenForo_Template_Abstract $template)
 	{
 		$xenOption = XenForo_Application::getOptions();
@@ -27,6 +28,8 @@ class ExtendPostRating_Listener_CodeEvent
 		}
 	}
 
+=======
+>>>>>>> 992971a84ba2fc4fe5deccc3066d77eadb17f7ec
 	public static function loadClass($class, array &$extend)
 	{
 		switch ($class)
@@ -58,5 +61,10 @@ class ExtendPostRating_Listener_CodeEvent
 				'linksTemplate'	=> 'epr_navigation_tab',
 			);
 		}
+	}
+
+	public static function widgetFrameworkReady(&$renderers)
+	{
+		$renderers[]= "ExtendPostRating_WidgetRenderer_TopUsers";
 	}
 }
